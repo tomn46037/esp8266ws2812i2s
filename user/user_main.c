@@ -116,6 +116,7 @@ void user_init(void)
 	AddMDNSService( "_ws2812._udp", "WS2812 Driver", 7777 );
 	AddMDNSService( "_cn8266._udp", "ESP8266 Backend", 7878 );
 
+	uart0_sendStr("\r\nStarting procTask\r\n");
 	//Add a process
 	system_os_task(procTask, procTaskPrio, procTaskQueue, procTaskQueueLen);
 
@@ -124,6 +125,7 @@ void user_init(void)
 	os_timer_setfn(&some_timer, (os_timer_func_t *)myTimer, NULL);
 	os_timer_arm(&some_timer, 100, 1);
 
+	uart0_sendStr("\r\nws2812_init\r\n");
 	ws2812_init();
 
 	uint8_t ledout[] = { 0x00, 0xff, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0x00 };
